@@ -4,11 +4,13 @@ import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
 import Faq from "../Pages/FAQ/FAQ";
 import Home from "../Pages/Home/Home/Home";
+import Post from "../Pages/Home/Post/Post";
 import Media from "../Pages/Media/Media";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import TermsConditions from "../Pages/Terms&Conditions/Terms&Conditions";
+import PrivateRouter from "./PrivateRouter";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -20,13 +22,11 @@ const router = createBrowserRouter([
             { path: '/home', element: <Home /> },
             { path: '/media', element: <Media /> },
             { path: '/about', element: <About /> },
-            { path: '/contact', element: <Contact/> },
+            { path: '/contact', element: <Contact /> },
+            { path: '/postForm', element: <PrivateRouter> <Post /> </PrivateRouter> },
 
             { path: '/SignIn', element: <SignIn /> },
             { path: '/SignUp', element: <SignUp /> },
-
-            { path: '/', element: '' },
-            { path: '/', element: '' },
 
             { path: '/Faq', element: <Faq /> },
             { path: '/PrivacyPolicy', element: <PrivacyPolicy /> },

@@ -13,7 +13,10 @@ const SignUp = () => {
     const from = location.state?.from?.pathname || "/";
     const navigate = useNavigate()
     const imageChange = e => {
-        setSelectImage(e.target.files[0])
+        if (e.target.files && e.target.files.length > 0) {
+
+            setSelectImage(e.target.files[0])
+        }
     }
 
     const createUser = (e) => {
@@ -55,6 +58,7 @@ const SignUp = () => {
             <div className='md:h-screen md:flex justify-center items-center'>
                 <img className='md:w-1/2' src={login} alt="" />
                 <div className='sm:w-96 mx-auto'>
+                    {firebaseError && <p>{firebaseError}</p>}
                     <h1 className='font-bold text-4xl pb-2 text-center '>Welcome!  </h1>
                     <p className='text-center pb-5'>Please sign up for your account</p>
                     <form onSubmit={createUser}>

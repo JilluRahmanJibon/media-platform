@@ -7,12 +7,12 @@ const PrivateRouter = ({ children }) => {
     const location = useLocation();
 
     if (loading) {
-        return 
+        return
     }
     if (user?.uid) {
-        return { children }
+        return children
     }
-    <Navigate to='/SignIn' state={{ from: location }} />
+    return <Navigate to='/SignIn' state={{ from: location }} />
 };
 
 export default PrivateRouter;
