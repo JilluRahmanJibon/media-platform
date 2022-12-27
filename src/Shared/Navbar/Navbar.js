@@ -61,7 +61,7 @@ const Navbar = () => {
 
         <li>
             <Link
-                to='/'
+                to='/SignUp'
                 className="btn btn-primary rounded-md font-semibold"
                 aria-label="Sign up"
                 title="Sign up"
