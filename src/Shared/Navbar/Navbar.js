@@ -1,50 +1,64 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menuItems = <React.Fragment>
         <li>
-            <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            <NavLink
+                to="/home"
+                aria-label="Home"
+                title="Home"
+
+                className={({ isActive }) =>
+                    isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }
             >
-                Product
-            </a>
+                Home
+            </NavLink>
         </li>
         <li>
-            <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            <NavLink
+                to="/media"
+                aria-label="Media"
+                title="Media"
+
+                className={({ isActive }) =>
+                    isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }
             >
-                Features
-            </a>
+                Media
+            </NavLink>
+        </li>
+
+        <li>
+            <NavLink
+                to="/about"
+                aria-label="About Us"
+                title="About Us"
+
+                className={({ isActive }) =>
+                    isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }
+            >
+                About Us
+            </NavLink>
         </li>
         <li>
-            <a
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            <NavLink
+                to="/contact"
+                aria-label="Contact Us"
+                title="Contact Us"
+
+                className={({ isActive }) =>
+                    isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }
             >
-                Pricing
-            </a>
+                Contact Us
+            </NavLink>
         </li>
-        <li>
-            <a
-                href="/"
-                aria-label="About us"
-                title="About us"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-                About us
-            </a>
-        </li>
+
         <li>
             <Link
                 to='/'
@@ -59,10 +73,10 @@ const Navbar = () => {
     return (
         <div>
             <div className="relative flex items-center justify-between">
-                <a
-                    href="/"
-                    aria-label="Company"
-                    title="Company"
+                <Link
+                    to="/"
+                    aria-label="Home"
+                    title="Home"
                     className="inline-flex items-center"
                 >
                     <svg
@@ -83,7 +97,7 @@ const Navbar = () => {
                     <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                         Own Media
                     </span>
-                </a>
+                </Link>
                 <ul className="flex items-center hidden space-x-8 lg:flex">
                     {menuItems}
                 </ul>
