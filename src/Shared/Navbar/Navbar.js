@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { FaUserCircle } from 'react-icons/fa';
+import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 
 const Navbar = () => {
+    const { user, userLogOut } = useContext(AuthContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menuItems = <React.Fragment>
@@ -60,14 +63,26 @@ const Navbar = () => {
         </li>
 
         <li>
-            <Link
-                to='/SignUp'
-                className="btn btn-primary rounded-md font-semibold"
-                aria-label="Sign up"
-                title="Sign up"
-            >
-                Sign up
-            </Link>
+            {user?.uid ?
+                <div className="flex  gap-2">
+                    <button onClick={() => userLogOut()}
+                        className="btn btn-primary rounded-md font-semibold"
+                        aria-label="Sign up"
+                        title="Sign up"
+                    >
+                        Sign Out
+                    </button>
+                    <img className="w-12 hidden lg:block rounded-full p-1 border-red-600 border" src={user?.photoURL} alt="" />
+                </div>
+                :
+                <Link
+                    to='/SignIn'
+                    className="btn btn-primary rounded-md font-semibold"
+                    aria-label="Sign In"
+                    title="Sign In"
+                >
+                    Sign In
+                </Link>}
         </li>
     </React.Fragment>
     return (
@@ -98,7 +113,7 @@ const Navbar = () => {
                         Own Media
                     </span>
                 </Link>
-                <ul className="flex items-center hidden space-x-8 lg:flex">
+                <ul className=" items-center hidden space-x-8 lg:flex">
                     {menuItems}
                 </ul>
 
@@ -106,23 +121,12 @@ const Navbar = () => {
                     <button
                         aria-label="Open Menu"
                         title="Open Menu"
-                        className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+                        className="p-1 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
                         onClick={() => setIsMenuOpen(true)}
                     >
-                        <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
-                            />
-                            <path
-                                fill="currentColor"
-                                d="M23,6H1C0.4,6,0,5.6,0,5s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,6,23,6z"
-                            />
-                            <path
-                                fill="currentColor"
-                                d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
-                            />
-                        </svg>
+                        {user?.uid ?
+                            <img className="w-12 lg:hidden block rounded-full p-1 border-red-600 border" src={user?.photoURL} alt="" />
+                            : <FaUserCircle className="text-2xl" />}
                     </button>
                     {isMenuOpen && (
                         <div className="absolute top-0 left-0 w-full">

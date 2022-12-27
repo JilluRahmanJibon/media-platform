@@ -1,17 +1,23 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { GrGallery } from 'react-icons/gr'
 import login from '../../Assests/login.webp'
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 const SignUp = () => {
     const [selectImage, setSelectImage] = useState()
-    const { createUserWithEmailAndPass, userProfileUpdate, loading, setLoading } = useContext(AuthContext);
+    const [firebaseError, setFirebaseError] = useState('');
     const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' })
+    const { createUserWithEmailAndPass, userProfileUpdate, continueWithGoogle, setLoading } = useContext(AuthContext);
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
+    const navigate = useNavigate()
     const imageChange = e => {
         setSelectImage(e.target.files[0])
     }
 
     const createUser = (e) => {
+        setLoading(true)
         e.preventDefault()
         const formData = new FormData()
         formData.append('image', selectImage)
@@ -21,9 +27,27 @@ const SignUp = () => {
                 createUserWithEmailAndPass(userInfo.email, userInfo.password)
                     .then(result => {
                         userProfileUpdate(userInfo.name, image)
-                        console.log(result);
-                    }).catch()
+                        navigate(from, { replace: true })
+                        setLoading(false)
+                        toast.success('Sign Up Successful', { duration: 1500 })
+                    }).catch(error => {
+                        console.log(error);
+                        setLoading(false)
+                    })
             }
+        })
+    }
+
+    const googleSignIn = () => {
+        setLoading(true)
+        continueWithGoogle().then(result => {
+            console.log(result);
+            navigate(from, { replace: true })
+            setLoading(false)
+            toast.success('Sign Up Successful', { duration: 1500 })
+        }).catch(error => {
+            setLoading(false)
+            console.log(error);
         })
     }
     return (
@@ -54,7 +78,7 @@ const SignUp = () => {
                                         Upload new
                                     </label>
                                 </p>
-                                
+
                                 <div className='flex justify-center '>
                                     <img className='' src={URL.createObjectURL(selectImage)} alt="" />
                                 </div>
@@ -77,7 +101,7 @@ const SignUp = () => {
                         </p>
                     </form>
                     <div className='mt-6'>
-                        <button className=' btn btn-outline btn-primary font-semibold cursor-pointer block rounded-sm w-full'>
+                        <button onClick={googleSignIn} className=' btn btn-outline btn-primary font-semibold cursor-pointer block rounded-sm w-full'>
                             Continue With Google
                         </button>
                     </div>
