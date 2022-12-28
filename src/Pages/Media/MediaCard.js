@@ -1,16 +1,16 @@
 import React from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 
-const MediaCard = ({  post, user }) => {
+const MediaCard = ({  post }) => {
     return (
         <section > 
-            <div className=" bg-white sm:w-96 mx-auto shadow-lg rounded-lg ">
+            <div className=" bg-white shadow-lg rounded-lg ">
                 <div className=" sm:px-4 px-2 py-6">
                     <div className='flex sm:justify-between border-b pb-2 flex-wrap pr-2'>
                         <div className='flex items-center '>
-                            <img alt='' className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={user?.photoURL} />
+                            <img alt='' className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={post?.userPhoto} />
                             <div className="">
-                                <h2 className="sm:text-lg font-semibold text-gray-900 -mt-1">{user?.displayName} </h2>
+                                <h2 className="sm:text-lg font-semibold text-gray-900 -mt-1">{post?.userName } </h2>
                                 <p className="text-gray-700">Joined 12 SEP 2012. </p>
                             </div>
                         </div>

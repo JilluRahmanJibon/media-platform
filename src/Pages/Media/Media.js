@@ -17,13 +17,13 @@ const Media = () => {
 
     return (
         <section className='flex '>
-            <div className='lg:w-[150px] sticky sm:block hidden h-full top-28'>
+            {user?.email && <div className='lg:w-[150px] sticky sm:block hidden h-full top-28'>
                 <NavLink to={`/media/myPosts`} className='block font-semibold'>
-                    My Posts 
+                    My Posts
                 </NavLink>
-            </div>
+            </div>}
             <div className='grid sm:w-96 mx-auto  gap-2 mt-5'>
-                {posts.map(post => <MediaCard key={post?._id} post={post} user={user} />)}
+                {posts.map(post => <MediaCard key={post?._id} post={post} />)}
            </div>
         </section>
     );

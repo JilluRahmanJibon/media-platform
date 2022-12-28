@@ -15,8 +15,8 @@ const MyPosts = () => {
     }
     return (
         <div>
-            <div className='grid  gap-2 mt-5'>
-                {posts.map(post => <MediaCard key={post?._id} post={post} user={user} />)}
+            <div className='grid sm:w-96 mx-auto  gap-2 mt-5'>
+                {posts.map(post => <MediaCard key={post?._id} post={post}   />)}
             </div>
         </div>
     );

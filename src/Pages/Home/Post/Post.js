@@ -25,6 +25,8 @@ const Post = () => {
                 const image = img.data.url
                 const data = {
                     userEmail: user?.email,
+                    userPhoto: user?.photoURL,
+                    userName :user?.displayName,
                     picture: image,
                     message: message
                 }
@@ -55,7 +57,7 @@ const Post = () => {
             <div className='sm:w-96'>
                 <h1 className='font-bold text-4xl text-center pb-4 border-b mb-3 '>Create Post</h1>
                 <div className='flex gap-2 mb-3'>
-                    <img className='w-12 rounded-full' src={user?.photoURL} alt="" />
+                    <img className='w-12 h-12 rounded-full' src={user?.photoURL} alt="" />
                     <div>
                         <h2>{user?.displayName}</h2>
                         <select className='bg-transparent' name="" id="">

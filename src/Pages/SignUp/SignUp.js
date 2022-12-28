@@ -1,26 +1,38 @@
 import React, { useContext, useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GrGallery } from 'react-icons/gr'
 import login from '../../Assests/login.webp'
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { toast } from 'react-hot-toast';
 const SignUp = () => {
     const [selectImage, setSelectImage] = useState()
-    const [firebaseError, setFirebaseError] = useState('');
-    const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' })
     const { createUserWithEmailAndPass, userProfileUpdate, continueWithGoogle, setLoading } = useContext(AuthContext);
+    const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' })
+    const [firebaseError, setFirebaseError] = useState('');
     const location = useLocation()
     const from = location.state?.from?.pathname || "/";
     const navigate = useNavigate()
     const imageChange = e => {
         if (e.target.files && e.target.files.length > 0) {
-
             setSelectImage(e.target.files[0])
         }
     }
+    function formatDate(date) {
+        const yyyy = date.getFullYear();
+        let dd = date.getDate() + 1;
+        if (dd < 10) dd = "0" + dd;
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+        let strTime =
+            monthNames[date.getMonth()] + "/" + dd + "/" + yyyy;
+        return strTime;
+    }
+    const currentDate = formatDate(new Date());
 
     const createUser = (e) => {
         setLoading(true)
+
         e.preventDefault()
         const formData = new FormData()
         formData.append('image', selectImage)
@@ -30,13 +42,29 @@ const SignUp = () => {
                 createUserWithEmailAndPass(userInfo.email, userInfo.password)
                     .then(result => {
                         userProfileUpdate(userInfo.name, image)
-                        navigate(from, { replace: true })
-                        setLoading(false)
-                        toast.success('Sign Up Successful', { duration: 1500 })
+                        const user = result.user
+                        const currentUser = {
+                            joiningDate: currentDate,
+                            name: userInfo.name,
+                            email: user?.email,
+                            picture: image,
+                            password: userInfo.password
+
+                        }
+                        fetch(`${process.env.REACT_APP_ApiUrl}users?email=${user?.email}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(currentUser) }).then(res => res.json()).then(result => {
+                            if (result.acknowledged) {
+                                setFirebaseError(null)
+                                navigate(from, { replace: true })
+                                setLoading(false)
+                                toast.success('Sign Up Successful', { duration: 1500 })
+                            }
+                        })
+
                     }).catch(error => {
-                        console.log(error);
-                        setLoading(false)
-                    })
+                        setLoading(false);
+                        setFirebaseError(error.message);
+                    });
+                setFirebaseError('');
             }
         })
     }
@@ -44,21 +72,36 @@ const SignUp = () => {
     const googleSignIn = () => {
         setLoading(true)
         continueWithGoogle().then(result => {
-            console.log(result);
-            navigate(from, { replace: true })
-            setLoading(false)
-            toast.success('Sign Up Successful', { duration: 1500 })
+            const user = result.user
+            const currentUser = {
+                joiningDate: currentDate,
+                name: user.name,
+                email: user?.email,
+                picture: user?.photoURL,
+
+            }
+            fetch(`${process.env.REACT_APP_ApiUrl}users?email=${user?.email}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(currentUser) }).then(res => res.json()).then(result => {
+                if (result.acknowledged) {
+                    setFirebaseError(null)
+                    navigate(from, { replace: true })
+                    setLoading(false)
+                    toast.success('Sign Up Successful', { duration: 1500 })
+                }
+            })
         }).catch(error => {
-            setLoading(false)
-            console.log(error);
-        })
+            setLoading(false);
+            setFirebaseError(error.message);
+        });
+        setFirebaseError('');
     }
     return (
         <section>
             <div className='md:h-screen md:flex justify-center items-center'>
                 <img className='md:w-1/2' src={login} alt="" />
                 <div className='sm:w-96 mx-auto'>
-                    {firebaseError && <p>{firebaseError}</p>}
+                    {firebaseError && (
+                        <p className=" text-center text-red-400 font-semibold">{firebaseError.replaceAll('Firebase:', ' ').replaceAll('Error', " Error:").replaceAll('(auth/', ' ').replaceAll('email', 'Email').replaceAll(')', '')}</p>
+                    )}
                     <h1 className='font-bold text-4xl pb-2 text-center '>Welcome!  </h1>
                     <p className='text-center pb-5'>Please sign up for your account</p>
                     <form onSubmit={createUser}>
