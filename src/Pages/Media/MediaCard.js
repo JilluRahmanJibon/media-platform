@@ -6,12 +6,23 @@ import CommentsBox from './CommentsBox';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 
-const MediaCard = ({ post }) => {
+const MediaCard = ({ post, refetch }) => {
     const { user } = useContext(AuthContext)
     const [openComment, setOpenComment] = useState(false);
     const [comment, setComment] = useState(null);
+    const [countLove, setCountLove] = useState(post?.loveReact > 1 ? post?.loveReact : 0 + 1);
+    const handleLoveReact = (e) => {
+        setCountLove(() => countLove + 1)
 
-   
+        fetch(`${process.env.REACT_APP_ApiUrl}posts?id=${e}`, {
+            method: 'PUT', headers: {
+                'content-type': 'application/json'
+            }, body: JSON.stringify({ countLove })
+        }).then(res => res.json()).then(result => {
+            console.log(result);
+            refetch()
+        })
+    }
     return (
         <section >
             <div className=" bg-white shadow-lg rounded-lg ">
@@ -39,10 +50,10 @@ const MediaCard = ({ post }) => {
                             </PhotoProvider>
                         </div>
                         <div className="mt-4 flex items-center">
-                            <div className="flex text-gray-700 text-sm mr-3">
+                            <div onClick={() => handleLoveReact(post?._id)} className="flex cursor-pointer text-gray-700 text-sm mr-3">
                                 <AiOutlineHeart className='mr-1 text-lg ' />
 
-                                <span>12</span>
+                                <span>{post?.loveReact}</span>
                             </div>
                             <div onClick={() => setOpenComment(!openComment)} className="flex  cursor-pointer text-gray-700 text-sm mr-8">
                                 <FaCommentDots className='mr-1 text-lg' />
@@ -57,7 +68,7 @@ const MediaCard = ({ post }) => {
                 </div>
             </div>
             {openComment && <>
-                <CommentsBox  post={post} comment={comment} user={user} setComment={setComment} />
+                <CommentsBox post={post} comment={comment} user={user} setComment={setComment} />
             </>}
         </section>
     );

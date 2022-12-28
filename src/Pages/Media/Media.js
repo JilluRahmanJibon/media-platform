@@ -7,7 +7,7 @@ import MediaCard from './MediaCard';
 
 const Media = () => {
     const { user } = useContext(AuthContext)
-    const { data: posts, isLoading } = useQuery({
+    const { data: posts, isLoading,refetch } = useQuery({
         queryKey: ['posts',],
         queryFn: () => fetch(`${process.env.REACT_APP_ApiUrl}posts`).then(res => res.json())
     })
@@ -23,7 +23,7 @@ const Media = () => {
                 </NavLink>
             </div>}
             <div className='grid sm:w-96 mx-auto  gap-5 mt-5'>
-                {posts.map(post => <MediaCard key={post?._id} post={post} />)}
+                {posts.map(post => <MediaCard refetch={refetch} key={post?._id} post={post} />)}
            </div>
         </section>
     );

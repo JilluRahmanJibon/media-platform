@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import { toast } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import SmallLoader from '../../Shared/Loader/SmallLoader';
 import Comments from './Comments';
 
 const CommentsBox = ({ comment, setComment, post, user }) => {
-    const [showComments, setShowComments] = useState(null);
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['comments', post?._id],
         queryFn: () => fetch(`${process.env.REACT_APP_ApiUrl}comments?id=${post?._id}`).then(res => res.json())
@@ -25,7 +24,7 @@ const CommentsBox = ({ comment, setComment, post, user }) => {
     }
     const currentDate = formatDate(new Date());
 
-    const handleSubmitCommet = (e) => {
+    const handleSubmitComment = (e) => {
         e.preventDefault()
         const postId = post?._id
         const data = {
@@ -44,12 +43,17 @@ const CommentsBox = ({ comment, setComment, post, user }) => {
         <section >
             <div className=" w-full bg-white p-2 rounded shadow-lg">
                 <div className="p-3 w-full">
-                    <form onSubmit={handleSubmitCommet}>
+                    <form onSubmit={handleSubmitComment}>
                         <textarea onChange={(e) => setComment(e.target.value)} required rows="3" className="border p-2 mb-1 rounded w-full" placeholder="Write something..."></textarea>
 
-                        {
-                            comment ? <button disabled={!comment} className="px-4 py-1  bg-gray-800 text-white rounded font-light hover:bg-gray-700">Submit</button> : <button disabled={!comment} className="px-4 py-1  bg-gray-500 text-white rounded font-light ">Submit</button>
-                        }
+                    {
+                            user?.email ? <> {
+                                comment ? <button disabled={!comment || !user?.email} className="px-4 py-1  bg-gray-800 text-white rounded font-light hover:bg-gray-700">Submit</button> : <button disabled={!comment || !user?.email} className="px-4 py-1  bg-gray-500 text-white rounded font-light ">Submit</button>
+                            }</> : <>
+                                    <p className='py-3 text-red-400'>Please sign in before then you will be comment</p>
+                                </>
+                    }
+                    
                     </form>
                 </div>
                 {data?.length > 0 && <div className='pt-3 mt-5 border-t'>
