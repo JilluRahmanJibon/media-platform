@@ -1,10 +1,15 @@
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
+import SmallLoader from '../../../Shared/Loader/SmallLoader';
 
 const Post = () => {
     const { user } = useContext(AuthContext)
+    const [loading, setLoading] = useState(false)
     const [selcetedImage, setSelcetedImage] = useState();
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate()
     const imageChange = e => {
         if (e.target.files && e.target.files.length > 0) {
             setSelcetedImage(e.target.files[0])
@@ -12,18 +17,39 @@ const Post = () => {
     }
 
     const postSubmit = () => {
+        setLoading(true)
         const formData = new FormData()
         formData.append('image', selcetedImage)
-        fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageKey}`, { method: 'POST', body: formData }).then(img => {
+        fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageKey}`, { method: 'POST', body: formData }).then(res => res.json()).then(img => {
             if (img.success) {
                 const image = img.data.url
+                const data = {
+                    userEmail: user?.email,
+                    picture: image,
+                    message: message
+                }
+                fetch(`${process.env.REACT_APP_ApiUrl}posts`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => res.json()).then(result => {
+                    if (result.acknowledged) {
+                        navigate('/media')
+                        toast.success('posted',{duration:1500})
+                        setLoading(false)
 
-
+                    }
+                })
             }
+
         }).catch(error => {
             console.log(error);
+            setLoading(false)
         })
     }
+
     return (
         <section className='sm:flex sm:h-screen sm:mb-20 mb-36 mt-11 sm:mt-0 justify-center items-center '>
             <div className='sm:w-96'>
@@ -46,28 +72,30 @@ const Post = () => {
                         <div className="extraOutline py-4 m-auto rounded-lg">
                             <div className="file_upload p-5 relative w-full border-4 border-dotted border-primary rounded-lg"  >
 
-                                {
-                                    selcetedImage ? <div>
-                                        <label htmlFor='uploadImage' className='absolute cursor-pointer z-50 top-2 bg-primary py-1 px-3 rounded-sm '>Add new </label>
-                                        <div className='flex relative justify-center '>
-                                            <img className='max-h-[400px] min-h-[250px] ' src={URL.createObjectURL(selcetedImage)} alt="" />
-                                        </div></div> :
-                                        <div>
-                                            <svg className="text-indigo-500 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
-                                            <div className="input_field flex flex-col w-max mx-auto text-center">
-                                                <label htmlFor='uploadImage'>
+                                <div className=''>
+                                    {
+                                        selcetedImage ? <div>
+                                            <label htmlFor='uploadImage' className='absolute cursor-pointer z-50 top-2 bg-primary py-1 px-3 rounded-sm '>Add new </label>
+                                            <div className='flex relative justify-center '>
+                                                <img className='max-h-[400px] min-h-[250px] ' src={URL.createObjectURL(selcetedImage)} alt="" />
+                                            </div></div> :
+                                            <div className='animate-pulse'>
+                                                <svg className="text-indigo-500 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                                                <div className="input_field flex flex-col w-max mx-auto text-center">
+                                                    <label htmlFor='uploadImage'>
 
-                                                    <div className="text bg-indigo-600 text-white border border-primary rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">Select</div>
-                                                </label>
+                                                        <div className="text bg-indigo-600 text-white border border-primary rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">Select</div>
+                                                    </label>
 
-                                                <div className="title text-indigo-500 uppercase">or drop files here</div>
+                                                    <div className="title text-indigo-500 uppercase">or drop files here</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                }
+                                    }
 
-                                <input id='uploadImage' className="text-sm cursor-pointer w-36 hidden" type="file" onChange={imageChange} accept='image/*' />
+                                    <input id='uploadImage' className="text-sm cursor-pointer w-36 hidden" type="file" onChange={imageChange} accept='image/*' />
+                                </div>
                             </div>
-                            <button onClick={postSubmit} className=' w-full btn btn-primary rounded-md mt-3' disabled={!message}>Post </button>
+                            <button onClick={postSubmit} className=' w-full btn btn-primary rounded-md mt-3' disabled={!message || loading}>{loading ? <SmallLoader /> : 'Post'} </button>
                         </div>
                     </div>
                 </div>

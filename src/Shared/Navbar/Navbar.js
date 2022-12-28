@@ -61,23 +61,36 @@ const Navbar = () => {
                 Contact Us
             </NavLink>
         </li>
+        <li className="sm:hidden block">
+            <NavLink
+                to="/media/myPosts"
+                aria-label="Contact Us"
+                title="Contact Us"
 
-        <li>
+                className={({ isActive }) =>
+                    isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                }
+            >
+                My Post 
+            </NavLink>
+        </li>
+
+        <li className="w-full sm:w-auto">
             {user?.uid ?
                 <div className="flex  gap-2">
                     <button onClick={() => userLogOut()}
-                        className="btn btn-primary rounded-md font-semibold"
+                        className="btn sm:w-auto w-full btn-primary rounded-md font-semibold"
                         aria-label="Sign up"
                         title="Sign up"
                     >
                         Sign Out
                     </button>
-                    <img className="w-12 hidden lg:block rounded-full p-1 border-red-600 border" src={user?.photoURL} alt="" />
+                    <img className="w-12 h-12 hidden lg:block rounded-full p-1 border-red-600 border" src={user?.photoURL} alt="" />
                 </div>
                 :
                 <Link
                     to='/SignIn'
-                    className="btn btn-primary rounded-md font-semibold"
+                    className="btn sm:w-auto w-full btn-primary rounded-md font-semibold"
                     aria-label="Sign In"
                     title="Sign In"
                 >
@@ -86,7 +99,7 @@ const Navbar = () => {
         </li>
     </React.Fragment>
     return (
-        <div>
+        <div className="sticky  h-full top-0 pt-3 pb-2 bg-[#faf7f5]">
             <div className="relative flex items-center justify-between">
                 <Link
                     to="/"
@@ -94,8 +107,8 @@ const Navbar = () => {
                     title="Own Media"
                     className="inline-flex items-center"
                 >
-                    <img className="w-12" src={socialLogo} alt="" />
-                    <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                    <img className="sm:w-12 w-10" src={socialLogo} alt="" />
+                    <span className="sm:ml-2 sm:text-xl pl-1 font-bold tracking-wide text-gray-800 uppercase">
                         Own Media
                     </span>
                 </Link>
@@ -103,7 +116,7 @@ const Navbar = () => {
                     {menuItems}
                 </ul>
 
-                <div className="lg:hidden">
+                <div className="lg:hidden z-50">
                     <button
                         aria-label="Open Menu"
                         title="Open Menu"
@@ -125,9 +138,9 @@ const Navbar = () => {
                                             title="Own Media"
                                             className="inline-flex items-center"
                                         >
-                                            <img className="w-12" src={socialLogo} alt="" />
+                                            <img className="sm:w-12 w-10 " src={socialLogo} alt="" />
 
-                                            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                                            <span className="sm:ml-2 sm:text-xl ml-1 font-bold tracking-wide text-gray-800 uppercase">
                                                 own media
                                             </span>
                                         </a>

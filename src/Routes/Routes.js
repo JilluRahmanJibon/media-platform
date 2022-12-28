@@ -6,6 +6,7 @@ import Faq from "../Pages/FAQ/FAQ";
 import Home from "../Pages/Home/Home/Home";
 import Post from "../Pages/Home/Post/Post";
 import Media from "../Pages/Media/Media";
+import MyPosts from "../Pages/Media/MyPosts";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
             { path: '/', element: <Home /> },
             { path: '/home', element: <Home /> },
             { path: '/media', element: <Media /> },
+            { path: '/media/myPosts', element: <PrivateRouter><MyPosts /> </PrivateRouter>},
             { path: '/about', element: <About /> },
             { path: '/contact', element: <Contact /> },
             { path: '/postForm', element: <PrivateRouter> <Post /> </PrivateRouter> },
