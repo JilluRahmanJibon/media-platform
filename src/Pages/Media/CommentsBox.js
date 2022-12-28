@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import SmallLoader from '../../Shared/Loader/SmallLoader';
 import Comments from './Comments';
+import { Link } from 'react-router-dom';
 
 const CommentsBox = ({ comment, setComment, post, user }) => {
     const { data, isLoading, refetch } = useQuery({
@@ -50,7 +51,7 @@ const CommentsBox = ({ comment, setComment, post, user }) => {
                             user?.email ? <> {
                                 comment ? <button disabled={!comment || !user?.email} className="px-4 py-1  bg-gray-800 text-white rounded font-light hover:bg-gray-700">Submit</button> : <button disabled={!comment || !user?.email} className="px-4 py-1  bg-gray-500 text-white rounded font-light ">Submit</button>
                             }</> : <>
-                                    <p className='py-3 text-red-400'>Please sign in before then you will be comment</p>
+                                    <p className='py-3 text-red-400'>Sign in first then you can comment <Link to='/SignIn.' className='border-b text-primary border-primary font-bold'>Sign In</Link></p>
                                 </>
                     }
                     

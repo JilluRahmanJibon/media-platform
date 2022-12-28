@@ -4,6 +4,7 @@ import { FaCommentDots, FaShareSquare } from 'react-icons/fa';
 import { AiOutlineHeart } from 'react-icons/ai';
 import CommentsBox from './CommentsBox';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 
 const MediaCard = ({ post, refetch }) => {
@@ -31,11 +32,11 @@ const MediaCard = ({ post, refetch }) => {
                         <div className='flex items-center '>
                             <img alt='' className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={post?.userPhoto} />
                             <div className="">
-                                <h2 className="sm:text-lg font-semibold text-gray-900 -mt-1">{post?.userName} </h2>
+                                <h2 className="sm:text-lg font-semibold text-gray-900 -mt-1"><Link>{post?.userName}</Link> </h2>
                                 <p className="text-gray-700">Joined 12 SEP 2012. </p>
                             </div>
                         </div>
-                        <small className="text-sm text-center sm:pl-0 pl-5 text-gray-700">22h ago</small>
+                        <small className="text-sm text-center sm:pl-0 pl-5 text-gray-700" title='submit date'>{post?.postDate}</small>
                     </div>
                     <div className="">
 

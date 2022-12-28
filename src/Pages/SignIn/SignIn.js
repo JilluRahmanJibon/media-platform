@@ -36,6 +36,7 @@ const [firebaseError,setFirebaseError]=useState('')
         });
         setFirebaseError('');
     }
+    
     return (
         <section className='h-screen md:flex justify-center items-center'>
             <img className='md:w-1/2' src={login} alt="" />
@@ -48,7 +49,7 @@ const [firebaseError,setFirebaseError]=useState('')
                 <form onSubmit={signGoogle}>
                     <div className='mt-3'>
                         <label htmlFor="email" className='font-semibold'>Email</label>
-                        <input onChange={e => setUserInfo({ ...userInfo, email: e.target.value })} required type="email" id='email' placeholder="Enter Your Email" className="input mt-1 input-bordered block rounded-sm input-success w-full" />
+                        <input title='Input your valid email' onChange={e => setUserInfo({ ...userInfo, email: e.target.value })} required type="email" id='email' placeholder="Enter Your Email" className="input mt-1 input-bordered block rounded-sm input-success w-full" />
                     </div>
 
                     <div className='mt-3'>
