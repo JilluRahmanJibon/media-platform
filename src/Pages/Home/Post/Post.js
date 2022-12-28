@@ -11,15 +11,32 @@ const Post = () => {
         }
     }
 
-    
+    const postSubmit = () => {
+        const formData = new FormData()
+        formData.append('image', selcetedImage)
+        fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageKey}`, { method: 'POST', body: formData }).then(img => {
+            if (img.success) {
+                const image = img.data.url
+
+
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+    }
     return (
-        <section className='flex h-screen mb-5 justify-center items-center '>
+        <section className='sm:flex sm:h-screen sm:mb-20 mb-36 mt-11 sm:mt-0 justify-center items-center '>
             <div className='sm:w-96'>
                 <h1 className='font-bold text-4xl text-center pb-4 border-b mb-3 '>Create Post</h1>
                 <div className='flex gap-2 mb-3'>
                     <img className='w-12 rounded-full' src={user?.photoURL} alt="" />
                     <div>
                         <h2>{user?.displayName}</h2>
+                        <select className='bg-transparent' name="" id="">
+                            <option value="">Friend of friends </option>
+                            <option value="">Friend </option>
+                            <option value="">Only me</option>
+                        </select>
                     </div>
                 </div>
                 <div className='max-h-96 h-full '>
@@ -33,7 +50,7 @@ const Post = () => {
                                     selcetedImage ? <div>
                                         <label htmlFor='uploadImage' className='absolute cursor-pointer z-50 top-2 bg-primary py-1 px-3 rounded-sm '>Add new </label>
                                         <div className='flex relative justify-center '>
-                                            <img className='' src={URL.createObjectURL(selcetedImage)} alt="" />
+                                            <img className='max-h-[400px] min-h-[250px] ' src={URL.createObjectURL(selcetedImage)} alt="" />
                                         </div></div> :
                                         <div>
                                             <svg className="text-indigo-500 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
@@ -50,7 +67,7 @@ const Post = () => {
 
                                 <input id='uploadImage' className="text-sm cursor-pointer w-36 hidden" type="file" onChange={imageChange} accept='image/*' />
                             </div>
-                            <button className=' w-full btn btn-primary rounded-md mt-3' disabled={!message}>Post </button>
+                            <button onClick={postSubmit} className=' w-full btn btn-primary rounded-md mt-3' disabled={!message}>Post </button>
                         </div>
                     </div>
                 </div>

@@ -12,8 +12,8 @@ const Teams = () => {
                         <div className="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-100 dark:text-gray-800">
                             <img alt="" className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="https://i.ibb.co/7CzHqSC/95261701-removebg-preview.png" />
                             <div className="flex-1 my-4">
-                                <p className="text-xl font-semibold leading-snug">Jillu Rahman Jibon </p>
-                                <p>JR.FullStack Developer</p>
+                                <p className="text-xl font-semibold leading-snug">Hossain Hudoy </p>
+                                <p>FullStack Developer</p>
                             </div>
                             <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
                                 <a rel="noopener noreferrer" href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
@@ -33,8 +33,8 @@ const Teams = () => {
                         <div className="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-100 dark:text-gray-800">
                             <img alt="" className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="https://i.ibb.co/7CzHqSC/95261701-removebg-preview.png" />
                             <div className="flex-1 my-4">
-                                <p className="text-xl font-semibold leading-snug">Jillu Rahman Jibon </p>
-                                <p>JR.FullStack Developer</p>
+                                <p className="text-xl font-semibold leading-snug">Abdul Quayum </p>
+                                <p>FullStack Developer</p>
                             </div>
                             <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
                                 <a rel="noopener noreferrer" href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
