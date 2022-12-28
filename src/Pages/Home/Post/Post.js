@@ -15,6 +15,17 @@ const Post = () => {
             setSelcetedImage(e.target.files[0])
         }
     }
+    function formatDate(date) {
+        let dd = date.getDate() + 1;
+        if (dd < 10) dd = "0" + dd;
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+        let strTime =
+            monthNames[date.getMonth()] + "/" + dd;
+        return strTime;
+    }
+    const currentDate = formatDate(new Date());
 
     const postSubmit = () => {
         setLoading(true)
@@ -26,9 +37,10 @@ const Post = () => {
                 const data = {
                     userEmail: user?.email,
                     userPhoto: user?.photoURL,
-                    userName :user?.displayName,
+                    userName: user?.displayName,
                     picture: image,
-                    message: message
+                    message: message,
+                    postDate: currentDate
                 }
                 fetch(`${process.env.REACT_APP_ApiUrl}posts`, {
                     method: 'POST',
@@ -39,7 +51,7 @@ const Post = () => {
                 }).then(res => res.json()).then(result => {
                     if (result.acknowledged) {
                         navigate('/media')
-                        toast.success('posted',{duration:1500})
+                        toast.success('posted', { duration: 1500 })
                         setLoading(false)
 
                     }

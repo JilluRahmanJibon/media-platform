@@ -6,7 +6,7 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 const SignIn = () => {
     const { logInWithEmailAndPassword, continueWithGoogle, setLoading } = useContext(AuthContext)
     const [userInfo, setUserInfo] = useState({ email: '', password: '' })
-
+const [firebaseError,setFirebaseError]=useState('')
     const location = useLocation()
     const from = location.state?.from?.pathname || "/";
     const navigate = useNavigate()
@@ -18,9 +18,10 @@ const SignIn = () => {
             navigate(from, { replace: true })
             toast.success('Sign In Successful', { duration: 1500 })
         }).catch(error => {
-            console.log(error);
-            setLoading(false)
-        })
+            setLoading(false);
+            setFirebaseError(error.message);
+        });
+        setFirebaseError('');
     }
     const googleContinue = () => {
         setLoading(true)
@@ -30,13 +31,18 @@ const SignIn = () => {
             setLoading(false)
             toast.success('Sign in Successful', { duration: 1500 })
         }).catch(error => {
-            setLoading(false)
-        })
+            setLoading(false);
+            setFirebaseError(error.message);
+        });
+        setFirebaseError('');
     }
     return (
         <section className='h-screen md:flex justify-center items-center'>
             <img className='md:w-1/2' src={login} alt="" />
             <div className='sm:w-96 mx-auto'>
+                {firebaseError && (
+                    <p className=" text-center text-red-400 font-semibold">{firebaseError.replaceAll('Firebase:', ' ').replaceAll('Error', " Error:").replaceAll('(auth/', ' ').replaceAll('email', 'Email').replaceAll(')', '')}</p>
+                )}
                 <h1 className='font-bold text-4xl pb-2 text-center '>Welcome Back! </h1>
                 <p className='text-center pb-5'>Please sign in to your account</p>
                 <form onSubmit={signGoogle}>
