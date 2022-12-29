@@ -12,10 +12,10 @@ const Banner = () => {
                         <TypeAnimation
                             sequence={[
                                 'Own Media Platform',
-                                3000, // Waits 1s
+                                3000, // Waits 3s
                                 'Build it with a Social Media Platform', // Deletes 'One' and types 'Two'
-                                20000, // Waits 2s
-                            
+                                30000, // Waits 40s
+
 
                                 () => {
                                     console.log('Done typing!'); // Place optional callbacks anywhere in the array

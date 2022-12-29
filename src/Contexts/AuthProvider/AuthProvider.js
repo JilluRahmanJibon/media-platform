@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updateProfile } from 'firebase/auth'
 import app from '../../Firebase/Firebase.config';
 import Loader from '../../Shared/Loader/Loader';
 
 export const AuthContext = createContext()
-const auth=getAuth(app)
-const AuthProvider = ({children}) => {
+const auth = getAuth(app)
+const AuthProvider = ({ children }) => {
 
     // user state
     const [user, setUser] = useState(null);
@@ -30,6 +30,11 @@ const AuthProvider = ({children}) => {
         if (photoUrl) {
         }
     };
+
+    // update email 
+    const emailUpdate = (email) => {
+        return updateEmail(auth.currentUser, email)
+    }
     // log in with email password
     const logInWithEmailAndPassword = (email, password) => {
         setLoading(true);
@@ -60,12 +65,12 @@ const AuthProvider = ({children}) => {
         logInWithEmailAndPassword,
         userLogOut,
         continueWithGoogle,
-        setLoading,
+        setLoading, emailUpdate
     };
     return (
         <div>
             {loading && <Loader />}
-            <AuthContext.Provider value={authInfo}> 
+            <AuthContext.Provider value={authInfo}>
                 {children}
             </AuthContext.Provider>
         </div>
