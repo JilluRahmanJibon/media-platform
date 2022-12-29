@@ -16,16 +16,37 @@ const Teams = () => {
                                 <p>FullStack Developer</p>
                             </div>
                             <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
-                                <a rel="noopener noreferrer" href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <GrMail className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaFacebook className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaLinkedinIn className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                    <FaGithub className='text-xl' />
+                                </a>
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-center w-full px-8 mx-6 my-12 text-center rounded-md md:w-96 lg:w-80 xl:w-64 dark:bg-gray-100 dark:text-gray-800">
+                            <img alt="" className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full dark:bg-gray-500" src="https://i.ibb.co/jhQN29r/amit.jpg" />
+                            <div className="flex-1 my-4">
+                                <p className="text-xl font-semibold leading-snug">Amit Sarker </p>
+                                <p>FullStack Developer</p>
+                            </div>
+                            <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                    <GrMail className='text-xl' />
+                                </a>
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                    <FaFacebook className='text-xl' />
+                                </a>
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                    <FaLinkedinIn className='text-xl' />
+                                </a>
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaGithub className='text-xl' />
                                 </a>
                             </div>
@@ -37,16 +58,16 @@ const Teams = () => {
                                 <p>FullStack Developer</p>
                             </div>
                             <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
-                                <a rel="noopener noreferrer" href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <GrMail className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaFacebook className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaLinkedinIn className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="#" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaGithub className='text-xl' />
                                 </a>
                             </div>
@@ -58,16 +79,16 @@ const Teams = () => {
                                 <p>JR.FullStack Developer</p>
                             </div>
                             <div className="flex items-center justify-center p-3 space-x-3 border-t-2">
-                                <a rel="noopener noreferrer" href="#" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="mailto:jillurahmanjibon@gmail.com" title="Email" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <GrMail className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="https://web.facebook.com/jillurahman.jibon.3" title="Twitter" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaFacebook className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="https://www.linkedin.com/in/jillurahmanjibon/" title="LinkedIn" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaLinkedinIn className='text-xl' />
                                 </a>
-                                <a rel="noopener noreferrer" href="#" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
+                                <a rel="noopener noreferrer" target='_blank' href="https://github.com/JilluRahmanJibon" title="GitHub" className="dark:text-gray-900 hover:dark:text-violet-400">
                                     <FaGithub className='text-xl' />
                                 </a>
                             </div>

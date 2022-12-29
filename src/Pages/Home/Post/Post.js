@@ -40,7 +40,8 @@ const Post = () => {
                     userName: user?.displayName,
                     picture: image,
                     message: message,
-                    postDate: currentDate
+                    postDate: currentDate,
+                    loveReact: 0
                 }
                 fetch(`${process.env.REACT_APP_ApiUrl}posts`, {
                     method: 'POST',

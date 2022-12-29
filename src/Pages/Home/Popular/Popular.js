@@ -17,7 +17,7 @@ const Popular = () => {
     if (isLoading) {
         return <SmallLoader />
     }
-
+    
     return (
         <section className='my-16'>
 

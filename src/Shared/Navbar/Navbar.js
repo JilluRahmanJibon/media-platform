@@ -99,7 +99,7 @@ const Navbar = () => {
         </li>
     </React.Fragment>
     return (
-        <div className="sticky  h-full top-0 pt-3 pb-2 bg-[#faf7f5]">
+        <div className="sticky z-50 h-full top-0 pt-3 pb-2 bg-[#faf7f5]">
             <div className="relative flex items-center justify-between">
                 <Link
                     to="/"
