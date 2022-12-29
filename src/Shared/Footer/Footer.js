@@ -20,18 +20,27 @@ const Footer = () => {
                     </Link>
                     <div className="mt-6 lg:max-w-sm">
                         <p className="text-sm text-gray-800">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                            accusantium doloremque laudantium, totam rem aperiam.
+                            This social media bio is one of your first opportunities to make an impression on your audience. A good bio can make the difference between whether or not a user chooses to follow you
                         </p>
                         <p className="mt-4 text-sm text-gray-800">
-                            Eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                            beatae vitae dicta sunt explicabo.
+
                         </p>
                     </div>
                 </div>
                 <div className="space-y-2 text-sm">
                     <p className="text-base font-bold tracking-wide text-gray-900">
-                        Contacts
+
+                        Contact
+                    </p>
+                    <p className='animate-pulse text-primary'>
+                        <Link
+                            to="/contact"
+                            aria-label="Contact Us"
+                            title="Contact Us"
+
+                        >
+                            Contact Now
+                        </Link>
                     </p>
                     <div className="flex">
                         <p className="mr-1 text-gray-800">Phone:</p>
@@ -103,8 +112,7 @@ const Footer = () => {
                         </a>
                     </div>
                     <p className="mt-4 text-sm text-gray-500">
-                        Bacon ipsum dolor amet short ribs pig sausage prosciutto chicken
-                        spare ribs salami.
+                        Here is am always active you can nock me any time.
                     </p>
                 </div>
             </div>

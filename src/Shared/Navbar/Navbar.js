@@ -45,27 +45,15 @@ const Navbar = () => {
                     isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
                 }
             >
-                About Us
+                About 
             </NavLink>
         </li>
-        <li>
-            <NavLink
-                to="/contact"
-                aria-label="Contact Us"
-                title="Contact Us"
-
-                className={({ isActive }) =>
-                    isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
-                }
-            >
-                Contact Us
-            </NavLink>
-        </li>
+       
         <li className="sm:hidden block">
             <NavLink
                 to="/media/myPosts"
-                aria-label="Contact Us"
-                title="Contact Us"
+                aria-label="myPost"
+                title="myPost"
 
                 className={({ isActive }) =>
                     isActive ? 'text-primary font-medium tracking-wide transition-colors duration-200 hover:text-deep-purple-accent-400' : 'font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'

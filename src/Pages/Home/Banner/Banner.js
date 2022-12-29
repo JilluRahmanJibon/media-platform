@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { TypeAnimation } from 'react-type-animation';
 
 const Banner = () => {
     return (
@@ -8,7 +9,23 @@ const Banner = () => {
                 <div className="container grid gap-6 mx-auto dark:text-gray-50 text-center lg:grid-cols-2 xl:grid-cols-5">
                     <div className="w-full px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 dark:bg-gray-900">
                         <span className="block mb-2 dark:text-primary">Own Media design system</span>
-                        <h1 className="md:text-5xl text-3xl font-extrabold">Build it with a Social Media Platform</h1>
+                        <TypeAnimation
+                            sequence={[
+                                'Own Media Platform',
+                                3000, // Waits 1s
+                                'Build it with a Social Media Platform', // Deletes 'One' and types 'Two'
+                                20000, // Waits 2s
+                            
+
+                                () => {
+                                    console.log('Done typing!'); // Place optional callbacks anywhere in the array
+                                }
+                            ]}
+                            wrapper="div"
+                            cursor={true}
+                            repeat={Infinity}
+                            className='md:text-5xl text-3xl font-extrabold'
+                        />
                         <p className="my-8">
                             <span className="font-medium ">Modular and versatile.</span>This social media bio is one of your first opportunities to make an impression on your audience. A good bio can make the difference between whether or not a user chooses to follow you.
                         </p>

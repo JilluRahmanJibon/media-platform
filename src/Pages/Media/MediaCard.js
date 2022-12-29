@@ -18,6 +18,7 @@ const MediaCard = ({ post, refetch }) => {
     const [openComment, setOpenComment] = useState(false);
     const [comment, setComment] = useState(null);
     const [react, setReact] = useState()
+    const [showDetails, setShowDetails] = useState(false);
     const handleReactions = (e) => {
         const re = {
             reaction: e.reaction,
@@ -30,38 +31,7 @@ const MediaCard = ({ post, refetch }) => {
     const jsonFile = localStorage.getItem(`like`)
     const reaction = JSON.parse(jsonFile)
 
-    // use local storage to manage cart data
-    const addToDb = id => {
-        let reactions = {};
-
-        //get the shopping cart from local storage
-        const storedReactions = localStorage.getItem("reactions");
-        if (storedReactions) {
-            reactions = JSON.parse(storedReactions);
-        }
-
-        // add quantity
-        const quantity = reactions[id];
-        if (quantity) {
-            const newQuantity = quantity + 1;
-            reactions[id] = newQuantity;
-        } else {
-            reactions[id] = 1;
-        }
-        localStorage.setItem("reactions", JSON.stringify(reactions));
-    };
-    const getStoredReact = () => {
-        let reactions = {};
-
-        //get the shopping cart from local storage
-        const storedReactions = localStorage.getItem("reactions");
-        if (storedReactions) {
-            reactions = JSON.parse(storedReactions);
-        }
-        return reactions;
-    };
-
-    const handleLoveReact = (e) => {
+    const handleLoveReact = async (e) => {
         fetch(`${process.env.REACT_APP_ApiUrl}posts?id=${e}`, {
             method: 'PUT', headers: {
                 'content-type': 'application/json'
@@ -75,7 +45,7 @@ const MediaCard = ({ post, refetch }) => {
     }
     return (
         <section >
-            <div className=" bg-white shadow-lg rounded-lg ">
+            <div className=" bg-white shadow-lg rounded-lg hover:border-2 hover:border-primary border-2 border-white">
                 <div className=" sm:px-4 px-2 py-6">
                     <div className='flex sm:justify-between border-b pb-2 flex-wrap pr-2'>
                         <div className='flex items-center '>
@@ -89,13 +59,15 @@ const MediaCard = ({ post, refetch }) => {
                     </div>
                     <div className="">
 
-                        <p className="mt-3 text-gray-700 text-sm pb-4">
-                            {post?.message?.length > 60 ? <>{post?.message.slice(0, 160)} <button className='border-b text-primary font-bold'>See more </button></> : post?.message}
+                        <p className="mt-3 text-gray-700 text-justify text-sm pb-4">
+                            {
+                                !showDetails ? <> {post?.message?.length > 49 ? <>{post?.message.slice(0, 49)} <button onClick={() => setShowDetails(!showDetails)} className='border-b text-primary font-bold'>see more </button></> : post?.message}</> : <> {post?.message?.length > 49 ? <>{post?.message} <button onClick={() => setShowDetails(!showDetails)} className='border-b text-primary font-bold'>see less  </button></> : post?.message}</>
+                            }
                         </p>
                         <div className='mb-5 flex justify-center'>
                             <PhotoProvider>
                                 <PhotoView src={post?.picture}>
-                                    <img className='max-h-[300px]' src={post?.picture} alt="" />
+                                    <img className='sm:h-[300px] rounded-md' src={post?.picture} alt="" />
                                 </PhotoView>
                             </PhotoProvider>
                         </div>
@@ -104,10 +76,11 @@ const MediaCard = ({ post, refetch }) => {
 
                                 <div className="dropdown dropdown-hover transition-all">
                                     <label tabIndex={0} className=" flex cursor-pointer m-1">
-                                        {reaction?.reaction === 'like' && reaction.reactionId === post._id ? <img className='w-6 h-6 rounded-full mr-2' src={react1} alt="" /> : <p onClick={() => handleReactions({ reaction: 'like', reactId: post?._id })}><BsHandThumbsUp onClick={() => handleLoveReact(post?._id)} className='mr-1 text-lg ' /></p>}
-                                        {/* {reaction?.reaction === 'heart' && reaction.reactionId === post._id ? <img className='w-6 h-6 rounded-full mr-2' src={react2} alt="" /> : <BsHandThumbsUp onClick={() => handleLoveReact(post?._id)} className='mr-1 text-lg ' />} */}
+                                        {reaction?.reaction === 'like' && reaction.reactionId === post._id ? <>
+                                            <img className='w-6 h-6 rounded-full mr-2' src={react1} alt="" />     <span className='pr-3 border-r border-gray-300 mr-3'>Like</span>
+                                        </> : <p className='flex' onClick={() => handleReactions({ reaction: 'like', reactId: post?._id })}><BsHandThumbsUp onClick={() => handleLoveReact(post?._id)} className='mr-1 text-lg ' /> <span className='pr-3 border-r border-gray-300 mr-3'>Like</span></p>}
 
-                                        <span className='pr-3 border-r border-gray-300 mr-3'>Like</span>
+
                                         <span  >{post?.loveReact}</span>
                                     </label>
                                     <ul tabIndex={0} className="dropdown-content transition-all cursor-default flex justify-between -top-9 p-2 shadow bg-base-100 rounded-box w-52">

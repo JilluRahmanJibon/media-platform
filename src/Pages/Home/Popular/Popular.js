@@ -21,12 +21,12 @@ const Popular = () => {
     return (
         <section className='my-16'>
 
-            <div className='flex justify-between items-center pr-2 '>
-                <h1 className='text-center font-bold text-4xl pb-3'>Top Popular </h1>
+            <div className='flex   top-1/2 justify-between items-center pr-2 '>
+                <h1 className='text-center font-bold sm:text-4xl pb-3 text-xl'>Popular Post </h1>
                 <p ><Link to='/media' className='flex items-center gap-2 bg-primary font-semibold py-2 px-3 ' >View All<BsBoxArrowInUpRight /></Link> </p>
             </div>
 
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-3'>
+            <div className='grid  gap-5 lg:grid-cols-3  mx-auto'>
                 {
                     data.map(popular => <MediaCard key={popular?._id} post={popular} />)
                 }

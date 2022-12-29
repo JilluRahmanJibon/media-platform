@@ -9,7 +9,12 @@ const Media = () => {
     const { user } = useContext(AuthContext)
     const { data: posts, isLoading, refetch } = useQuery({
         queryKey: ['posts',],
-        queryFn: () => fetch(`${process.env.REACT_APP_ApiUrl}posts`).then(res => res.json())
+        queryFn: async () => {
+            const res = await fetch(`${process.env.REACT_APP_ApiUrl}posts`)
+            const data = await res.json()
+            return data
+
+        }
     })
     if (isLoading) {
         return <SmallLoader />
