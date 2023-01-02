@@ -99,10 +99,10 @@ const Post = () => {
                                                 <div className="input_field flex flex-col w-max mx-auto text-center">
                                                     <label htmlFor='uploadImage'>
 
-                                                        <div className="text bg-indigo-600 text-white border border-primary rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">Select</div>
+                                                        <div className="text bg-indigo-600 text-white border border-primary rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">Select Image</div>
                                                     </label>
 
-                                                    <div className="title text-indigo-500 uppercase">or drop files here</div>
+                                                    <div className="title text-indigo-500 ">Image is required</div>
                                                 </div>
                                             </div>
                                     }
@@ -110,7 +110,7 @@ const Post = () => {
                                     <input id='uploadImage' className="text-sm cursor-pointer w-36 hidden" type="file" onChange={imageChange} accept='image/*' />
                                 </div>
                             </div>
-                            <button onClick={postSubmit} className=' w-full btn btn-primary rounded-md mt-3' disabled={!message || loading}>{loading ? <SmallLoader /> : 'Post'} </button>
+                            <button onClick={postSubmit} className=' w-full btn btn-primary rounded-md mt-3' disabled={!message || loading||!selcetedImage}>{loading ? <SmallLoader /> : 'Post'} </button>
                         </div>
                     </div>
                 </div>

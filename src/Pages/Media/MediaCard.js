@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { FaCommentDots, FaShareSquare } from 'react-icons/fa';
 import { BsHandThumbsUp } from 'react-icons/bs';
@@ -17,19 +17,10 @@ const MediaCard = ({ post, refetch }) => {
     const { user } = useContext(AuthContext)
     const [openComment, setOpenComment] = useState(false);
     const [comment, setComment] = useState(null);
-    const [react, setReact] = useState()
     const [showDetails, setShowDetails] = useState(false);
-    const handleReactions = (e) => {
-        const re = {
-            reaction: e.reaction,
-            reactionId: e.reactId,
+    const [id, setId] = useState({});
 
-        }
-        localStorage.setItem(`${e.reaction}`, JSON.stringify(re))
-        setReact(e.reaction)
-    }
-    const jsonFile = localStorage.getItem(`like`)
-    const reaction = JSON.parse(jsonFile)
+
 
     const handleLoveReact = async (e) => {
         fetch(`${process.env.REACT_APP_ApiUrl}posts?id=${e}`, {
@@ -43,6 +34,44 @@ const MediaCard = ({ post, refetch }) => {
             }
         })
     }
+
+
+
+
+    const handleReactions = (e) => {
+        const id = e.reactId
+
+        const reaction = e.reaction
+        let reacttions = {};
+        setId(id)
+
+        //get the shopping cart from local storage
+        const storedReact = localStorage.getItem("reactions");
+        if (storedReact) {
+            reacttions = JSON.parse(storedReact);
+        }
+
+        // add quantity
+        const alreadyStoredId = reacttions[id];
+        if (alreadyStoredId) {
+            reacttions[id] = reaction;
+
+            refetch()
+        } else {
+            reacttions[id] = reaction;
+
+        }
+        localStorage.setItem("reactions", JSON.stringify(reacttions));
+        refetch()
+
+    }
+
+    const reactions = JSON.parse(localStorage.getItem('reactions'))
+    useEffect(() => {
+
+    }, [reactions[id]]);
+
+
     return (
         <section >
             <div className=" bg-white shadow-lg rounded-lg hover:border-2 hover:border-primary border-2 border-white">
@@ -52,7 +81,7 @@ const MediaCard = ({ post, refetch }) => {
                             <img alt='' className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={post?.userPhoto} />
                             <div className="">
                                 <h2 className="sm:text-lg font-semibold text-gray-900 -mt-1"><Link>{post?.userName}</Link> </h2>
-                                <p className="text-gray-700">Joined 12 SEP 2012. </p>
+                                <p className="text-gray-700 text-sm">Joined 12 SEP 2012. </p>
                             </div>
                         </div>
                         <small className="text-sm text-center sm:pl-0 pl-5 text-gray-400 font-semibold" title='submit date'>{post?.postDate}</small>
@@ -76,10 +105,26 @@ const MediaCard = ({ post, refetch }) => {
 
                                 <div className="dropdown dropdown-hover transition-all">
                                     <label tabIndex={0} className=" flex cursor-pointer m-1">
-                                        {reaction?.reaction === 'like' && reaction.reactionId === post._id ? <>
-                                            <img className='w-6 h-6 rounded-full mr-2' src={react1} alt="" />     <span className='pr-3 border-r border-gray-300 mr-3'>Like</span>
-                                        </> : <p className='flex' onClick={() => handleReactions({ reaction: 'like', reactId: post?._id })}><BsHandThumbsUp onClick={() => handleLoveReact(post?._id)} className='mr-1 text-lg ' /> <span className='pr-3 border-r border-gray-300 mr-3'>Like</span></p>}
-
+                                        {/* {reactions[post._id] === 'like' ? <>
+                                            <img className='w-6 h-6 rounded-full mr-2' src={react1} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Like</span>
+                                        </> : ||reactions[post._id]==='heart'&&} */}
+                                        {
+                                            reactions[post._id] === 'like' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react1} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Like</span>
+                                            </> || reactions[post._id] === 'heart' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react2} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Love</span>
+                                            </> || reactions[post._id] === 'cure' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react3} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Cure</span>
+                                            </> || reactions[post._id] === 'haha' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react4} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Haha</span>
+                                            </> || reactions[post._id] === 'wow' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react5} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Wow</span>
+                                            </> || reactions[post._id] === 'sad' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react6} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Sad</span>
+                                            </> || reactions[post._id] === 'angry' && <>
+                                                <img className='w-6 h-6 rounded-full mr-2' src={react7} alt="" /> <span className='pr-3 border-r border-gray-300 mr-3'>Angry</span>
+                                            </> || <p className='flex' onClick={() => handleReactions({ reaction: 'like', reactId: post?._id })}><BsHandThumbsUp onClick={() => handleLoveReact(post?._id)} className='mr-1 text-lg ' /> <span className='pr-3 border-r border-gray-300 mr-3'>Like</span></p>
+                                        }
 
                                         <span  >{post?.loveReact}</span>
                                     </label>
